@@ -1,11 +1,13 @@
 // Require.js allows us to configure shortcut alias
 // Their usage will become more apparent futher along in the tutorial.
 require.config({
+  waitSeconds: 5,
   paths: {
     jquery: '../node_modules/jquery/dist/jquery.min',
     underscore: '../node_modules/underscore/underscore-min',
     backbone: '../node_modules/backbone/backbone-min',
     dust: '../node_modules/dustjs-linkedin/dist/dust-full.min',
+    localstorage: '../node_modules/backbone.localstorage/build/backbone.localStorage.min',
     templates: '../templates'
   }
 
@@ -16,7 +18,6 @@ require([
   'app',
 
 ], function(App){
-  // The "app" dependency is passed in as "App"
-  // Again, the other dependencies passed in are not "AMD" therefore don't pass a parameter to this function
+  window.App = {};
   App.initialize();
 });

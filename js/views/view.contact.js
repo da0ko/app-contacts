@@ -7,7 +7,9 @@ define([
 ], function($, _, Backbone, Dust, ContactTemplate) {
 
   var ContactView = Backbone.View.extend({
-    tagName: 'li',
+    tagName: 'div',
+    className: 'col-sm-4 contact-wrapper',
+      
     template: ContactTemplate,
 
     events: {
@@ -19,17 +21,17 @@ define([
     },
 
     render: function() {
-      var compiled = dust.compile(this.template, "contactTemplate")
+      var compiled = dust.compile(this.template, "contactTemplate");
       dust.loadSource(compiled);
       var that = this;
       dust.render("contactTemplate", this.model.toJSON(), function(err, out) {
           if (err) {
               console.log(err);
           }
-          console.log(out);
-          that.$el.append(out);
+          console.log("Rendered "+this);
+          that.$el.html(out);
       });
-
+        
       return this;
     },
 

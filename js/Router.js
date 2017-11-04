@@ -2,9 +2,10 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'js/models/model.contact.js',
-  'js/views/view.contact.js'
-], function($, _, Backbone, ContactModel, ContactsView) {
+  'models/model.contact',
+  'views/view.contactlist',
+  'views/view.contactedit'
+], function($, _, Backbone, ContactModel, ContactlistView, EditContactView) {
 
   var Router = Backbone.Router.extend({
     routes: {
@@ -15,22 +16,19 @@ define([
     },
 
     initialize: function(options) {
+      this.appView = options.view;
+      this.collection = options.collection;
+      this.collection.fetch();
     },
+        
 
     home: function() {
-      var contactsModel = new ContactModel({
-          name: 'testname',
-          phone: '123',
-          group: 'testgroup'
-      })
-      var contactsView = new ContactsView({
-        model: contactsModel
+      var contactlistView = new ContactlistView({
+        collection: this.collection
       });
-      contactsView.render();
-        
-      return contactsView;
+      this.appView.setViews(contactlistView);
     },
-
+      
     newContact: function() {
       var createContactsView = new EditContactView({
         model: new ContactModel()
@@ -50,7 +48,7 @@ define([
 
       createContactsView.on('form:close', this.contactFormClose);
     },
-      
+
     contactFormClose: function() {
       App.router.navigate('home', true);
     }

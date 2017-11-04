@@ -1,0 +1,46 @@
+.bs-header {
+  position: relative;
+  padding: 30px 15px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.contact-container{
+    padding: 5px;
+
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightblue;
+    border-radius: 5px;
+    
+    text-align: center;
+    
+}
+
+.contact-container .avatar-img-wrapper{
+    padding: 5px;
+}
+
+.contact-container .avatar-img-wrapper .avatar-img{
+    border-radius: 5px;
+}
+
+
+.btn-outline {
+  color: #563d7c;
+  background-color: transparent;
+  border-color: #563d7c;
+
+}
+
+.contact-name-search {
+  margin: 0 auto;
+}
+
+.hide {
+  display: none;
+}
+
+.media {
+  margin: 0;
+}

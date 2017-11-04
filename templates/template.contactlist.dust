@@ -1,0 +1,15 @@
+<div class="row well">
+   <div class="text-center col-md-9">
+      <input type="text" class="form-control contact-name-search" placeholder="Search">
+   </div>    
+   <div class="text-center col-md-3">
+     <div class="contact-btn-wrapper">
+            <a href="#contacts/new" class="btn btn-success">
+            <span class="glyphicon glyphicon-plus"></span>Add new contact</a>
+     </div>
+   </div>
+
+</div>
+<div class="row contacts-container">
+<div class="empty-contacts-placeholder"></div>
+<div class="empty-search-contacts-placeholder"></div>
