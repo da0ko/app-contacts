@@ -18,7 +18,6 @@ define([
           if (err) {
               console.log(err);
           }
-          console.log("Rendered "+this);
           that.$el.html(out);
       });
 
