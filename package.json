@@ -18,9 +18,12 @@
   "homepage": "https://github.com/da0ko/app-contacts#readme",
   "dependencies": {
     "bower": "^1.8.2",
-    "grunt": "^1.0.1",
     "requirejs": "^2.3.5",
     "text": "github:requirejs/text",
     "backbone.localstorage": "^2.0.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-bower": "0.0.13"
   }
 }
