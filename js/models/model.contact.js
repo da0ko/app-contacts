@@ -12,11 +12,11 @@ define([
     
     validate: function (attrs) {
       var errors = [];
-      if (!$.trim(attrs.name) || !this.validateName(attrs.name)) {
+      if (!$.trim(attrs.name)) {
         errors.push({name: 'name', message: 'Please enter the name field.'});
       }
-      if (!$.trim(attrs.phone)) {
-        errors.push({name: 'phone', message: 'Please enter the phone field.'});
+      if (!$.trim(attrs.phone) || !this.validatePhone(attrs.phone)) {
+        errors.push({name: 'phone', message: 'Please, check phone that you\'ve entered'});
       }
       if (!$.trim(attrs.group)) {
         errors.push({name: 'group', message: 'Please enter the valid group field.'});
@@ -24,10 +24,9 @@ define([
       return errors.length > 0 ? errors : false;
     },
 
-    validateName: function(name) { 
-    //  var re = /^(1\s|1|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/;
-//      return re.test(name);
-        return true;
+    validatePhone: function(name) { 
+      var re = /^(1\s|1|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/;
+      return re.test(name);
     }
       
   });

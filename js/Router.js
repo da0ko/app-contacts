@@ -48,6 +48,23 @@ define([
 
       createContactsView.on('form:close', this.contactFormClose);
     },
+      
+    editContact: function(id) {
+      var contact = this.collection.get(id);
+      var editContactsView = new EditContactView({
+        model: contact
+      });
+      this.appView.setViews(editContactsView);
+
+      editContactsView.on('form:submitted', function(attrs) {
+        var modelError = contact.save(attrs, {validate:true});
+        if(modelError !== false) {
+          App.router.navigate('home', true);
+        }
+      });
+
+      editContactsView.on('form:close', this.contactFormClose);
+    },  
 
     contactFormClose: function() {
       App.router.navigate('home', true);

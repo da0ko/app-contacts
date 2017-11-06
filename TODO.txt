@@ -3,7 +3,7 @@
   use npm to install bower and gulp
   use gulp to run bower and install all other dependencies
 - add validation with backbone validator plugin
-- add edit form
-- organize require imports
+- organize require imports:
+  i can move text.js as import to index.html
 - final code cleanup:
   dont forget spacing
