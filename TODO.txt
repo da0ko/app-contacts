@@ -4,6 +4,7 @@
   use gulp to run bower and install all other dependencies
 - add validation with backbone validator plugin
 - organize require imports:
-  i can move text.js as import to index.html
+  use syntax sugar for require
+- review npm+bower dependencies - which one are dev deps?
 - final code cleanup:
   dont forget spacing
