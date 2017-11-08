@@ -9,11 +9,15 @@ define([
     template: ContactEditTemplate,
 
     initialize: function() {
-      this.listenTo(this.model, 'invalid', function(model, error, options) {
-        this.cleanFormErrors();
-        _.each(error, this.showFormErrors, this);
-      });
+        
+      Backbone.Validation.bind(this);
+      this.model.bind('validated:invalid', function(model, errors) {
+            this.cleanFormErrors();    
+            _.each(errors, this.showFormErrors, this);
+      }, this);   
+        
     },
+      
 
     events: {
       'submit .contact-form': 'onFormSubmit',
@@ -33,35 +37,29 @@ define([
           if (err) {
               console.log(err);
           }
-          console.log("Rendered "+this);
           that.$el.append(out);
       });
 
       return this;
     },
 
-    onFormSubmit: function(e) {
-      e.preventDefault();
+    onFormSubmit: function(e) { 
       var attrs = {
         name: this.$('.contact-name-input').val(),
         phone: this.$('.contact-phone-input').val(),
-        group: this.$('.contact-email-input').val()
+        group: this.$('.contact-group-input').val()
       };
-
-      if(this.model.isNew()) {
-        var error = this.model.validate(attrs);
-        if(error) {
-          this.cleanFormErrors();
-          _.each(error, this.showFormErrors, this);
+     
+      var hasErrors = this.model.validate(attrs);
+      if (hasErrors) {
           return;
-        }
-      }
-
+      }  
+        
       this.trigger('form:submitted', attrs);
     },
 
-    showFormErrors: function(error) {
-      this.$('.form-group-' + error.name).addClass('has-error').find('.help-block').html(error.message);
+    showFormErrors: function(error, fieldKey) {
+      this.$('.form-group-' + fieldKey).addClass('has-error').find('.help-block').html(error);
     },
 
     cleanFormErrors: function() {

@@ -4,7 +4,7 @@ define([
   'backbone',
   'models/model.contact',
   'views/view.contactlist',
-  'views/view.contactedit'
+  'views/view.contactedit',
 ], function($, _, Backbone, ContactModel, ContactlistView, EditContactView) {
 
   var Router = Backbone.Router.extend({
@@ -26,6 +26,7 @@ define([
       var contactlistView = new ContactlistView({
         collection: this.collection
       });
+        
       this.appView.setViews(contactlistView);
     },
       
@@ -38,12 +39,9 @@ define([
       createContactsView.on('form:submitted', function(attrs) {
         attrs.id = this.collection.isEmpty() ? 1 : (_.max(this.collection.pluck('id')) + 1);
         var newContact = new ContactModel(attrs);
-        var modelError = newContact.isValid();
-        if(modelError !== false) {
-          this.collection.add(newContact);
-          newContact.save();
-          App.router.navigate('home', true);
-        }
+        this.collection.add(newContact);
+        newContact.save();
+        App.router.navigate('home', true);
       }, this);
 
       createContactsView.on('form:close', this.contactFormClose);
@@ -57,10 +55,8 @@ define([
       this.appView.setViews(editContactsView);
 
       editContactsView.on('form:submitted', function(attrs) {
-        var modelError = contact.save(attrs, {validate:true});
-        if(modelError !== false) {
-          App.router.navigate('home', true);
-        }
+        var modelError = contact.save(attrs);
+        App.router.navigate('home', true);
       });
 
       editContactsView.on('form:close', this.contactFormClose);
@@ -68,7 +64,7 @@ define([
 
     contactFormClose: function() {
       App.router.navigate('home', true);
-    }
+    }       
 
   });
 
