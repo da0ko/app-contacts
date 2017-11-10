@@ -1,8 +1,6 @@
 {
   "name": "app-contacts",
   "version": "1.0.0",
-  "description": "contact manager app",
-  "main": "index.js",
   "scripts": {
     "postinstall": "gulp"
   },
@@ -11,11 +9,6 @@
     "url": "git+https://github.com/da0ko/app-contacts.git"
   },
   "author": "daoko",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/da0ko/app-contacts/issues"
-  },
-  "homepage": "https://github.com/da0ko/app-contacts#readme",
   "dependencies": {
     "backbone.localstorage": "^2.0.2"
   },
