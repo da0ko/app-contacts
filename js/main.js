@@ -12,7 +12,6 @@ require.config({
         text: '../node_modules/text/text',
         templates: '../templates'
     }
-
 });
 
 require([

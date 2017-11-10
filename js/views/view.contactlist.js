@@ -1,10 +1,11 @@
 define(function(require) {
-
+    
     var $ = require('jquery');
     var _ = require('underscore');
     var Backbone = require('backbone');
     var ContactlistTemplate = require('text!templates/template.contactlist.dust');
     var ContactView = require('views/view.contact');
+    
     var ContactlistView = Backbone.View.extend({
         template: ContactlistTemplate,
 

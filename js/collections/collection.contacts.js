@@ -1,8 +1,8 @@
 define(function(require) {
+    
     var Backbone = require('backbone');
     var ContactModel = require('models/model.contact');
     var LocalStorage = require('localstorage');
-
 
     var ContactsCollection = Backbone.Collection.extend({
         model: ContactModel,

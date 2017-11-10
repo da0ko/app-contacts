@@ -55,7 +55,7 @@ define(function(require) {
             this.appView.setViews(editContactsView);
 
             editContactsView.on('form:submitted', function(attrs) {
-                var modelError = contact.save(attrs);
+                contact.save(attrs);
                 App.router.navigate('home', true);
             });
 

@@ -1,11 +1,10 @@
 define(function(require) {
-
+    
     var $ = require('jquery');
     var _ = require('underscore');
     var Backbone = require('backbone');
     var Dust = require('dust');
     var ContactTemplate = require('text!templates/template.contact.dust');
-
 
     var ContactView = Backbone.View.extend({
         tagName: 'div',
@@ -29,7 +28,6 @@ define(function(require) {
                 if (err) {
                     console.log(err);
                 }
-                console.log("Rendered " + this);
                 that.$el.html(out);
             });
 
