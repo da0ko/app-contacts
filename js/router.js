@@ -1,72 +1,72 @@
-define([
-  'jquery',
-  'underscore',
-  'backbone',
-  'models/model.contact',
-  'views/view.contactlist',
-  'views/view.contactedit',
-], function($, _, Backbone, ContactModel, ContactlistView, EditContactView) {
+define(function(require) {
 
-  var Router = Backbone.Router.extend({
-    routes: {
-      '': 'home',
-      'home': 'home',
-      'contacts/new': 'newContact',
-      'contacts/edit/:id': 'editContact'
-    },
+    var $ = require('jquery');
+    var _ = require('underscore');
+    var Backbone = require('backbone');
+    var ContactModel = require('models/model.contact');
+    var ContactlistView = require('views/view.contactlist');
+    var EditContactView = require('views/view.contactedit');
 
-    initialize: function(options) {
-      this.appView = options.view;
-      this.collection = options.collection;
-      this.collection.fetch();
-    },
-        
+    var Router = Backbone.Router.extend({
+        routes: {
+            '': 'home',
+            'home': 'home',
+            'contacts/new': 'newContact',
+            'contacts/edit/:id': 'editContact'
+        },
 
-    home: function() {
-      var contactlistView = new ContactlistView({
-        collection: this.collection
-      });
-        
-      this.appView.setViews(contactlistView);
-    },
-      
-    newContact: function() {
-      var createContactsView = new EditContactView({
-        model: new ContactModel()
-      });
-      this.appView.setViews(createContactsView);
+        initialize: function(options) {
+            this.appView = options.view;
+            this.collection = options.collection;
+            this.collection.fetch();
+        },
 
-      createContactsView.on('form:submitted', function(attrs) {
-        attrs.id = this.collection.isEmpty() ? 1 : (_.max(this.collection.pluck('id')) + 1);
-        var newContact = new ContactModel(attrs);
-        this.collection.add(newContact);
-        newContact.save();
-        App.router.navigate('home', true);
-      }, this);
 
-      createContactsView.on('form:close', this.contactFormClose);
-    },
-      
-    editContact: function(id) {
-      var contact = this.collection.get(id);
-      var editContactsView = new EditContactView({
-        model: contact
-      });
-      this.appView.setViews(editContactsView);
+        home: function() {
+            var contactlistView = new ContactlistView({
+                collection: this.collection
+            });
 
-      editContactsView.on('form:submitted', function(attrs) {
-        var modelError = contact.save(attrs);
-        App.router.navigate('home', true);
-      });
+            this.appView.setViews(contactlistView);
+        },
 
-      editContactsView.on('form:close', this.contactFormClose);
-    },  
+        newContact: function() {
+            var createContactsView = new EditContactView({
+                model: new ContactModel()
+            });
+            this.appView.setViews(createContactsView);
 
-    contactFormClose: function() {
-      App.router.navigate('home', true);
-    }       
+            createContactsView.on('form:submitted', function(attrs) {
+                attrs.id = this.collection.isEmpty() ? 1 : (_.max(this.collection.pluck('id')) + 1);
+                var newContact = new ContactModel(attrs);
+                this.collection.add(newContact);
+                newContact.save();
+                App.router.navigate('home', true);
+            }, this);
 
-  });
+            createContactsView.on('form:close', this.contactFormClose);
+        },
 
-  return Router;
+        editContact: function(id) {
+            var contact = this.collection.get(id);
+            var editContactsView = new EditContactView({
+                model: contact
+            });
+            this.appView.setViews(editContactsView);
+
+            editContactsView.on('form:submitted', function(attrs) {
+                var modelError = contact.save(attrs);
+                App.router.navigate('home', true);
+            });
+
+            editContactsView.on('form:close', this.contactFormClose);
+        },
+
+        contactFormClose: function() {
+            App.router.navigate('home', true);
+        }
+
+    });
+
+    return Router;
 });
