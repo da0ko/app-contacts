@@ -2,6 +2,7 @@ define(function(require) {
     
     var Backbone = require('backbone');
     var ContactModel = require('models/model.contact');
+    var _ = require('underscore');
     var LocalStorage = require('localstorage');
 
     var ContactsCollection = Backbone.Collection.extend({
@@ -9,10 +10,9 @@ define(function(require) {
         localStorage: new Backbone.LocalStorage("Contacts"),
 
         search: function(letters) {
-            var pattern = new RegExp(letters, "gi");
-            return (this.filter(function(contact) {
-                return pattern.test(contact.get("name"));
-            }));
+            return _.filter(this.models, function(contact) {
+                return contact.get("name").includes(letters);
+            });
         }
     });
 

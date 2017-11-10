@@ -24,7 +24,6 @@ define(function(require) {
 
             this.contactsContainer = this.$('.contacts-container');
             this.emptyContactsPlaceholder = this.$('.empty-contacts-placeholder');
-            this.emptySearchPlaceholder = this.$('.empty-search-contacts-placeholder');
         },
 
         events: {
@@ -32,33 +31,34 @@ define(function(require) {
         },
 
         searchContacts: function(e) {
-            var searchTerm = $.trim(this.$('.contact-name-search').val());
-            if (searchTerm) {
-                var filterd = this.collection.search(searchTerm);
-                if (filterd.length) {
-                    this.contactsContainer.empty();
-                    this.emptySearchPlaceholder.empty();
-                    _.each(filterd, this.renderOne, this);
-                } else {
-                    this.contactsContainer.empty();
-                    this.emptySearchPlaceholder.html('<div class="well text-center"><h3>There are no contacts starting with <strong>' + searchTerm + '.</strong></h3></div>');
-                }
+            var searchFilter = $.trim(this.$('.contact-name-search').val());
+            if (searchFilter) {
+               var filteredContacts = this.collection.search(searchFilter); 
+               this.displaySearchResult(filteredContacts);
             } else {
                 this.render();
             }
         },
 
+        displaySearchResult: function(filteredContacts) {
+            this.contactsContainer.empty();
+            if (filteredContacts.length) {
+                _.each(filteredContacts, this.renderContact, this);
+            }       
+        },
+        
         render: function() {
             this.contactsContainer.empty();
             if (this.collection.length) {
-                this.collection.each(this.renderOne, this);
+                this.emptyContactsPlaceholder.hide();
+                this.collection.each(this.renderContact, this);
             } else {
-                this.emptyContactsPlaceholder.html('<div class="well text-center"><h3>There are no contacts</h3> <a href="#contacts/new" class="btn btn-success">Add Contact</a></div>');
+                this.emptyContactsPlaceholder.show();
             }
             return this;
         },
 
-        renderOne: function(contact) {
+        renderContact: function(contact) {
             var contactView = new ContactView({
                 model: contact
             });
