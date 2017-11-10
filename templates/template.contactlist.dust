@@ -10,6 +10,6 @@
    </div>
 
 </div>
-<div class="row contacts-container">
+<div class="row contacts-container"></div>
 <div class="empty-contacts-placeholder"></div>
 <div class="empty-search-contacts-placeholder"></div>

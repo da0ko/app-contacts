@@ -9,15 +9,12 @@ define(function(require) {
         template: ContactEditTemplate,
 
         initialize: function() {
-
             Backbone.Validation.bind(this);
             this.model.bind('validated:invalid', function(model, errors) {
                 this.cleanFormErrors();
                 _.each(errors, this.showFormErrors, this);
             }, this);
-
         },
-
 
         events: {
             'submit .contact-form': 'onFormSubmit',
@@ -25,7 +22,6 @@ define(function(require) {
         },
 
         render: function() {
-
             this.$el.empty();
 
             var compiled = dust.compile(this.template, "contactEditTemplate");
