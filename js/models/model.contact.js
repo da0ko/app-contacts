@@ -20,7 +20,8 @@ define(function(require) {
                 }
             },
             group: {
-                required: true
+                required: true,
+                msg: 'Please, enter a group'
             }
         }
 

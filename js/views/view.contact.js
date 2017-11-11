@@ -13,7 +13,7 @@ define(function(require) {
         template: ContactTemplate,
 
         events: {
-            'click .delete-contact': 'onClickContactDelete'
+            'click .delete-contact': 'deleteContact'
         },
 
         initialize: function() {
@@ -34,7 +34,7 @@ define(function(require) {
             return this;
         },
 
-        onClickContactDelete: function(e) {
+        deleteContact: function(e) {
             e.preventDefault();
             var confirmDelete = window.confirm('Do you want to delete the contact ?');
             if (confirmDelete) {

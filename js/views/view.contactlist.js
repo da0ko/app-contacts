@@ -42,14 +42,14 @@ define(function(require) {
 
         displaySearchResult: function(filteredContacts) {
             this.contactsContainer.empty();
-            if (filteredContacts.length) {
+            if (!_.isEmpty(filteredContacts)) {
                 _.each(filteredContacts, this.renderContact, this);
             }       
         },
         
         render: function() {
             this.contactsContainer.empty();
-            if (this.collection.length) {
+            if (!this.collection.isEmpty()) {
                 this.emptyContactsPlaceholder.hide();
                 this.collection.each(this.renderContact, this);
             } else {

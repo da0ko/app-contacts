@@ -4,7 +4,7 @@ define(function(require) {
     var _ = require('underscore');
     var Backbone = require('backbone');
     var ContactModel = require('models/model.contact');
-    var ContactlistView = require('views/view.contactlist');
+    var ContactListView = require('views/view.contactlist');
     var EditContactView = require('views/view.contactedit');
 
     var Router = Backbone.Router.extend({
@@ -23,20 +23,20 @@ define(function(require) {
 
 
         home: function() {
-            var contactlistView = new ContactlistView({
+            var contactListView = new ContactListView({
                 collection: this.collection
             });
 
-            this.appView.setViews(contactlistView);
+            this.appView.setCurrentView(contactListView);
         },
 
         newContact: function() {
-            var createContactsView = new EditContactView({
+            var createContactView = new EditContactView({
                 model: new ContactModel()
             });
-            this.appView.setViews(createContactsView);
+            this.appView.setCurrentView(createContactView);
 
-            createContactsView.on('form:submitted', function(attrs) {
+            createContactView.on('form:submitted', function(attrs) {
                 attrs.id = this.collection.isEmpty() ? 1 : (_.max(this.collection.pluck('id')) + 1);
                 var newContact = new ContactModel(attrs);
                 this.collection.add(newContact);
@@ -44,7 +44,7 @@ define(function(require) {
                 App.router.navigate('home', true);
             }, this);
 
-            createContactsView.on('form:close', this.contactFormClose);
+            createContactView.on('form:close', this.closeContactForm);
         },
 
         editContact: function(id) {
@@ -52,17 +52,17 @@ define(function(require) {
             var editContactsView = new EditContactView({
                 model: contact
             });
-            this.appView.setViews(editContactsView);
+            this.appView.setCurrentView(editContactsView);
 
             editContactsView.on('form:submitted', function(attrs) {
                 contact.save(attrs);
                 App.router.navigate('home', true);
             });
 
-            editContactsView.on('form:close', this.contactFormClose);
+            editContactsView.on('form:close', this.closeContactForm);
         },
 
-        contactFormClose: function() {
+        closeContactForm: function() {
             App.router.navigate('home', true);
         }
 

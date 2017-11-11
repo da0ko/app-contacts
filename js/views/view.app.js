@@ -7,7 +7,7 @@ define(function(require) {
     var AppView = Backbone.View.extend({
         el: $('.main-container'),
 
-        setViews: function(view) {
+        setCurrentView: function(view) {
             var closingView = this.view;
 
             this.view = view;
@@ -24,7 +24,7 @@ define(function(require) {
         },
 
         closeView: function(view) {
-            if (view) {
+            if (!_.isUndefined(view)) {
                 view.unbind();
                 view.$el.slideToggle(500, function() {
                     $(this).remove();
