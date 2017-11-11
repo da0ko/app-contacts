@@ -6,6 +6,7 @@ define(function(require) {
     var ContactModel = require('models/model.contact');
     var ContactListView = require('views/view.contactlist');
     var EditContactView = require('views/view.contactedit');
+    var demoContacts = require('demo/demo.contacts');
 
     var Router = Backbone.Router.extend({
         routes: {
@@ -19,6 +20,11 @@ define(function(require) {
             this.appView = options.view;
             this.collection = options.collection;
             this.collection.fetch();
+            
+            if (this.collection.isEmpty()) {
+                this.initializeDemoData();
+            }
+
         },
 
 
@@ -64,7 +70,14 @@ define(function(require) {
 
         closeContactForm: function() {
             App.router.navigate('home', true);
-        }
+        },
+        
+        initializeDemoData: function() {
+            _.each(demoContacts, function(demoContact) {
+                this.collection.add(demoContact);
+                demoContact.save();
+            }, this);
+        }  
 
     });
 
